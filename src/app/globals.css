@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-highlight: var(--highlight);
+  --color-deep-teal: var(--deep-teal);
+  --color-bg-content: var(--bg-content);
+  --color-detail: var(--detail);
+  --color-text-main: var(--text-main);
+  --color-text-sub: var(--text-sub);
+  --color-border-sub: var(--border-sub);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  
+  --color-ocean-950: var(--ocean-950);
+  --color-ocean-900: var(--ocean-900);
+  --color-ocean-800: var(--ocean-800);
+  --color-ocean-700: var(--ocean-700);
+  --color-ocean-600: var(--ocean-600);
+  --color-ocean-500: var(--ocean-500);
+  --color-ocean-400: var(--ocean-400);
+  
+  --color-teal-500: var(--teal-500);
+  --color-teal-400: var(--teal-400);
+  --color-teal-300: var(--teal-300);
+}
+
+:root {
+  /* Light Mode (Coral Sand and Deep Teal theme) */
+  --primary: #F36D16;        /* Orange Accent */
+  --highlight: #98C71F;      /* Lime Green Highlight */
+  --deep-teal: #004D40;      /* Deep Teal */
+  --bg-content: #FDF5E6;     /* Coral Sand Background */
+  --detail: #FFC107;         /* Goldfish Fin Gold */
+  
+  --text-main: #004D40;      /* Deep Teal text */
+  --text-sub: #00695C;       /* Secondary Teal text */
+  --border-sub: rgba(0, 77, 64, 0.12);
+  --glass-bg: rgba(253, 245, 230, 0.8);
+  --glass-border: rgba(0, 77, 64, 0.12);
+
+  --ocean-950: #EADBC8;      
+  --ocean-900: #FDF5E6;      
+  --ocean-800: #F5E5C9;      
+  --ocean-700: #004D40;      
+  --ocean-600: #00695C;      
+  --ocean-500: #00796B;      
+  --ocean-400: #00897B;      
+  
+  --teal-500: #F36D16;       /* Primary Orange for light mode buttons */
+  --teal-400: #F36D16;       /* Map prices to Primary Orange in light mode for readability */
+  --teal-300: #00796B;       
+}
+
+.dark {
+  /* Dark Mode (Deep Oceanic Dark and Bright Neon accents) */
+  --primary: #F36D16;        
+  --highlight: #98C71F;      
+  --deep-teal: #14b8a6;      
+  --bg-content: #0a1128;     
+  --detail: #FFC107;         
+  
+  --text-main: #f3f4f6;      
+  --text-sub: #9ca3af;       
+  --border-sub: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(10, 17, 40, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --ocean-950: #030712;
+  --ocean-900: #0a1128;
+  --ocean-800: #001f54;
+  --ocean-700: #034078;
+  --ocean-600: #0077b6;
+  --ocean-500: #0096c7;
+  --ocean-400: #00b4d8;
+  
+  --teal-500: #14b8a6;
+  --teal-400: #2dd4bf;
+  --teal-300: #5eead4;
+}
+
+/* Custom Base Styles */
+@layer base {
+  body {
+    background-color: var(--color-bg-content);
+    color: var(--color-text-main);
+    font-family: "Inter", "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-main);
+    transition: color 0.3s ease;
+  }
+
+  p, span, label, input, textarea, select {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
+/* Light Mode Specific Resets for dark utility classes */
+:root:not(.dark) {
+  /* Override text white colors to deep teal */
+  .text-white {
+    color: var(--color-text-main) !important;
+  }
+  .text-gray-100 {
+    color: var(--color-text-main) !important;
+  }
+  .text-gray-200 {
+    color: var(--color-text-main) !important;
+  }
+  .text-gray-300 {
+    color: var(--color-text-sub) !important;
+  }
+  .text-gray-400 {
+    color: var(--color-text-sub) !important;
+  }
+  .text-gray-500 {
+    color: rgba(0, 77, 64, 0.6) !important;
+  }
+  
+  /* Link states hover corrections */
+  .hover\:text-teal-400:hover {
+    color: var(--color-primary) !important;
+  }
+  
+  /* Buttons formatting (white text on primary orange buttons) */
+  .bg-teal-500, .bg-primary {
+    color: #ffffff !important;
+  }
+  
+  /* Input fields styling */
+  input, textarea, select {
+    background-color: #ffffff !important;
+    border-color: rgba(0, 77, 64, 0.2) !important;
+    color: var(--color-text-main) !important;
+  }
+  input::placeholder, textarea::placeholder {
+    color: rgba(0, 77, 64, 0.45) !important;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 1px var(--color-primary) !important;
+  }
+
+  /* Form / Dialog background boxes */
+  .bg-ocean-950 {
+    background-color: #ffffff !important;
+  }
+  .bg-ocean-950\/80 {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .bg-ocean-950\/40 {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  .bg-ocean-950\/30 {
+    background-color: rgba(0, 77, 64, 0.04) !important;
+  }
+
+  /* Transparent panels and dividers */
+  .border-white\/5 {
+    border-color: rgba(0, 77, 64, 0.08) !important;
+  }
+  .border-white\/10 {
+    border-color: rgba(0, 77, 64, 0.15) !important;
+  }
+  .border-l.border-white\/10 {
+    border-left-color: rgba(0, 77, 64, 0.15) !important;
+  }
+  .border-t.border-white\/5 {
+    border-top-color: rgba(0, 77, 64, 0.08) !important;
+  }
+  .border-b.border-white\/5 {
+    border-bottom-color: rgba(0, 77, 64, 0.08) !important;
+  }
+  .border-b.border-white\/10 {
+    border-bottom-color: rgba(0, 77, 64, 0.15) !important;
+  }
+
+  /* Badge overlays */
+  .bg-teal-500\/10 {
+    background-color: rgba(243, 109, 22, 0.08) !important;
+    border-color: rgba(243, 109, 22, 0.15) !important;
+  }
+  .bg-teal-500\/5 {
+    background-color: rgba(243, 109, 22, 0.04) !important;
+  }
+  
+  /* Status tags contrast overrides */
+  .text-yellow-400 {
+    color: #b58900 !important;
+  }
+  .bg-yellow-400\/10 {
+    background-color: rgba(181, 137, 0, 0.08) !important;
+  }
+  .text-sky-400 {
+    color: #0284c7 !important;
+  }
+  .bg-sky-400\/10 {
+    background-color: rgba(2, 132, 199, 0.08) !important;
+  }
+  .text-emerald-400 {
+    color: #059669 !important;
+  }
+  .bg-emerald-400\/10 {
+    background-color: rgba(5, 150, 105, 0.08) !important;
+  }
+  .text-rose-400 {
+    color: #dc2626 !important;
+  }
+  .bg-rose-400\/10 {
+    background-color: rgba(220, 38, 38, 0.08) !important;
+  }
+
+  /* Specific badges */
+  .font-mono.text-white.bg-ocean-950 {
+    background-color: var(--color-deep-teal) !important;
+    color: #ffffff !important;
+  }
+
+  /* Details spec lists */
+  .bg-ocean-950\/30.p-4.rounded-xl {
+    background-color: rgba(0, 77, 64, 0.04) !important;
+    border-color: rgba(0, 77, 64, 0.08) !important;
+  }
+
+}
+
+/* Global Premium Utilities */
+.glassmorphism {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-glass-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.glassmorphism-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glassmorphism-hover:hover {
+  background: var(--color-glass-bg);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 30px -10px rgba(243, 109, 22, 0.15);
+  transform: translateY(-4px);
+}
+
+.glow-teal {
+  box-shadow: 0 0 15px rgba(243, 109, 22, 0.3);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-highlight) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ocean-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ocean-700);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Global Footer Styles - Always Dark Ocean Navy for strong visual structure */
+footer {
+  background-color: #050814 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #9ca3af !important;
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+footer p, footer span, footer a {
+  color: #9ca3af !important;
+}
+
+footer p.font-semibold, footer a.font-bold {
+  color: #ffffff !important;
+}
+
+footer .text-gradient {
+  background: linear-gradient(135deg, #F36D16 0%, #98C71F 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
