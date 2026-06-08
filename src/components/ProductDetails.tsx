@@ -28,7 +28,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   const inWishlist = isInWishlist(product.id);
   const isStockOut = product.stock <= 0;
-  const videoId = getYouTubeEmbedId(product.youtubeUrl);
+  const videoIds = ((product as any).youtubeUrls || [])
+    .map((url: string) => getYouTubeEmbedId(url))
+    .filter(Boolean) as string[];
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
@@ -123,12 +125,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               {product.category.name}
             </span>
 
-            <h1 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
+            <h1 className="mt-3 text-3xl md:text-4xl font-extrabold text-white leading-tight">
               {product.name}
             </h1>
 
             <div className="text-3xl font-extrabold text-teal-400">
-              ৳ {product.price.toLocaleString("bn-BD")}
+              ৳ {product.price.toLocaleString("bn-BD")} <span className="text-sm">(জোড়া)</span>
             </div>
 
             <div className="border-t border-b border-white/5 py-4 space-y-2">
@@ -209,21 +211,25 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       </div>
 
       {/* Youtube Video Embed section */}
-      {videoId && (
+      {videoIds.length > 0 && (
         <section className="glassmorphism p-6 md:p-8 rounded-3xl border border-white/5 space-y-5">
           <h3 className="text-xl font-bold text-white flex items-center gap-2">
             <Youtube className="w-6 h-6 text-red-500" />
-            <span>মাছটির লাইভ ভিডিও দেখে নিন</span>
+            <span>{videoIds.length > 1 ? "মাছটির লাইভ ভিডিওগুলো দেখে নিন" : "মাছটির লাইভ ভিডিও দেখে নিন"}</span>
           </h3>
-          <div className="relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/5 bg-ocean-950 shadow-2xl">
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}`}
-              title={`${product.name} Video`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full"
-            />
+          <div className={`grid grid-cols-1 ${videoIds.length > 1 ? "xl:grid-cols-2" : ""} gap-6`}>
+            {videoIds.map((vId, idx) => (
+              <div key={idx} className="relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-white/5 bg-ocean-950 shadow-2xl">
+                <iframe
+                  src={`https://www.youtube.com/embed/${vId}`}
+                  title={`${product.name} Video ${idx + 1}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ))}
           </div>
         </section>
       )}

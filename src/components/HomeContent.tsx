@@ -74,7 +74,7 @@ export default function HomeContent({
         <div className="flex-1 flex justify-center items-center z-10">
           <div className="relative w-72 h-72 md:w-96 md:h-96 animate-float flex items-center justify-center bg-gradient-to-tr from-teal-500/20 to-ocean-500/20 rounded-full border border-teal-500/30 overflow-hidden shadow-2xl">
             <Image
-              src="/hero-img.jpeg"
+              src="/hero.png"
               alt="Colorful Aquarium Fish"
               fill
               className="object-cover object-center scale-110"
@@ -94,8 +94,8 @@ export default function HomeContent({
           <button
             onClick={() => setSelectedCategory("all")}
             className={`px-5 py-2.5 rounded-xl border font-semibold text-sm transition-all duration-300 cursor-pointer whitespace-nowrap ${selectedCategory === "all"
-                ? "bg-teal-500 text-ocean-950 border-teal-400 glow-teal"
-                : "bg-ocean-950/50 border-white/5 text-gray-300 hover:border-teal-500/30 hover:text-teal-400"
+              ? "bg-teal-500 text-ocean-950 border-teal-400 glow-teal"
+              : "bg-ocean-950/50 border-white/5 text-gray-300 hover:border-teal-500/30 hover:text-teal-400"
               }`}
           >
             সব পণ্য ({initialProducts.length})
@@ -109,8 +109,8 @@ export default function HomeContent({
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-5 py-2.5 rounded-xl border font-semibold text-sm transition-all duration-300 cursor-pointer whitespace-nowrap ${selectedCategory === cat.id
-                    ? "bg-teal-500 text-ocean-950 border-teal-400 glow-teal"
-                    : "bg-ocean-950/50 border-white/5 text-gray-300 hover:border-teal-500/30 hover:text-teal-400"
+                  ? "bg-teal-500 text-ocean-950 border-teal-400 glow-teal"
+                  : "bg-ocean-950/50 border-white/5 text-gray-300 hover:border-teal-500/30 hover:text-teal-400"
                   }`}
               >
                 {cat.name} ({count})
@@ -160,8 +160,8 @@ export default function HomeContent({
                     {/* Stock indicator badge */}
                     <span
                       className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold uppercase ${isStockOut
-                          ? "bg-red-500/90 text-white"
-                          : "bg-teal-500/90 text-ocean-950 glow-teal"
+                        ? "bg-red-500/90 text-white"
+                        : "bg-teal-500/90 text-ocean-950 glow-teal"
                         }`}
                     >
                       {isStockOut ? "স্টক আউট" : "স্টকে আছে"}
@@ -171,8 +171,8 @@ export default function HomeContent({
                     <button
                       onClick={() => toggleWishlist(product)}
                       className={`absolute top-3 right-3 p-2.5 rounded-full border transition-all duration-300 cursor-pointer ${inWishlist
-                          ? "bg-rose-500 text-white border-rose-400"
-                          : "bg-ocean-950/80 border-white/10 text-gray-300 hover:text-rose-500"
+                        ? "bg-rose-500 text-white border-rose-400"
+                        : "bg-ocean-950/80 border-white/10 text-gray-300 hover:text-rose-500"
                         }`}
                     >
                       <Heart
@@ -191,15 +191,18 @@ export default function HomeContent({
                       <h3 className="text-lg font-bold text-white group-hover:text-teal-400 transition-colors line-clamp-1">
                         {product.name}
                       </h3>
-                      <p className="text-gray-400 text-sm line-clamp-2">
+                      {/* <p className="text-gray-400 text-sm line-clamp-2">
                         {product.description}
-                      </p>
+                      </p> */}
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-extrabold text-teal-400">
-                        ৳ {product.price.toLocaleString("bn-BD")}
-                      </span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xl font-extrabold text-teal-400">
+                          ৳ {product.price.toLocaleString("bn-BD")}
+                        </span>
+                        <span className="text-sm ml-1">(জোড়া)</span>
+                      </div>
                       <span className="text-xs text-gray-500">
                         অবশিষ্ট: {product.stock.toLocaleString("bn-BD")} টি
                       </span>
@@ -217,8 +220,8 @@ export default function HomeContent({
                         onClick={() => addToCart(product, 1)}
                         disabled={isStockOut}
                         className={`flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 cursor-pointer ${isStockOut
-                            ? "bg-gray-800 text-gray-500 border border-gray-700 cursor-not-allowed"
-                            : "bg-teal-500 text-ocean-950 hover:bg-teal-400 glow-teal"
+                          ? "bg-gray-800 text-gray-500 border border-gray-700 cursor-not-allowed"
+                          : "bg-teal-500 text-ocean-950 hover:bg-teal-400 glow-teal"
                           }`}
                       >
                         <ShoppingCart className="w-4 h-4" /> কার্ট

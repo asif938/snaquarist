@@ -56,7 +56,7 @@ model Product {
   price         Float
   stock         Int            @default(0)
   images        String[]
-  youtubeUrl    String?
+  youtubeUrls   String[]
   categoryId    String
   category      Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   orderItems    OrderItem[]

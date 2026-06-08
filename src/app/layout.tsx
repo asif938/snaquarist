@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
+import FloatingContact from "@/components/FloatingContact";
 
 export const metadata: Metadata = {
   title: "SN Aquarist - প্রিমিয়াম অ্যাকোয়ারিয়াম ফিশ ই-কমার্স স্টোর",
@@ -36,6 +37,7 @@ export default function RootLayout({
               </div>
             </div>
           </footer>
+          <FloatingContact />
         </Providers>
       </body>
     </html>

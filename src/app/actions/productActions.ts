@@ -133,11 +133,13 @@ export async function createProduct(formData: FormData) {
     const price = parseFloat(formData.get("price") as string);
     const stock = parseInt(formData.get("stock") as string);
     const categoryId = formData.get("categoryId") as string;
-    const youtubeUrl = formData.get("youtubeUrl") as string;
 
     // Images will be passed as JSON string
     const imagesJson = formData.get("images") as string;
     const images: string[] = imagesJson ? JSON.parse(imagesJson) : [];
+
+    const youtubeUrlsJson = formData.get("youtubeUrls") as string;
+    const youtubeUrls: string[] = youtubeUrlsJson ? JSON.parse(youtubeUrlsJson) : [];
 
     if (!name || !description || isNaN(price) || isNaN(stock) || !categoryId) {
       return { error: "অনুগ্রহ করে সব প্রয়োজনীয় তথ্য পূরণ করুন" };
@@ -150,7 +152,7 @@ export async function createProduct(formData: FormData) {
         price,
         stock,
         categoryId,
-        youtubeUrl: youtubeUrl || null,
+        youtubeUrls,
         images,
       },
     });
@@ -175,10 +177,12 @@ export async function updateProduct(id: string, formData: FormData) {
     const price = parseFloat(formData.get("price") as string);
     const stock = parseInt(formData.get("stock") as string);
     const categoryId = formData.get("categoryId") as string;
-    const youtubeUrl = formData.get("youtubeUrl") as string;
 
     const imagesJson = formData.get("images") as string;
     const images: string[] = imagesJson ? JSON.parse(imagesJson) : [];
+
+    const youtubeUrlsJson = formData.get("youtubeUrls") as string;
+    const youtubeUrls: string[] = youtubeUrlsJson ? JSON.parse(youtubeUrlsJson) : [];
 
     if (!name || !description || isNaN(price) || isNaN(stock) || !categoryId) {
       return { error: "অনুগ্রহ করে সব প্রয়োজনীয় তথ্য পূরণ করুন" };
@@ -192,7 +196,7 @@ export async function updateProduct(id: string, formData: FormData) {
         price,
         stock,
         categoryId,
-        youtubeUrl: youtubeUrl || null,
+        youtubeUrls,
         images,
       },
     });

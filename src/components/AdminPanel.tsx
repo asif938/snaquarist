@@ -79,7 +79,7 @@ export default function AdminPanel({
   const [productPrice, setProductPrice] = useState("");
   const [productStock, setProductStock] = useState("");
   const [productCatId, setProductCatId] = useState("");
-  const [productYoutube, setProductYoutube] = useState("");
+  const [productYoutubeUrls, setProductYoutubeUrls] = useState<string[]>([]);
   const [productImages, setProductImages] = useState<string[]>([]);
   const [uploadingImages, setUploadingImages] = useState(false);
 
@@ -232,7 +232,7 @@ export default function AdminPanel({
     formData.append("price", productPrice);
     formData.append("stock", productStock);
     formData.append("categoryId", productCatId);
-    formData.append("youtubeUrl", productYoutube.trim());
+    formData.append("youtubeUrls", JSON.stringify(productYoutubeUrls.filter(u => u.trim() !== "")));
     formData.append("images", JSON.stringify(productImages));
 
     let res;
@@ -269,7 +269,7 @@ export default function AdminPanel({
       setProductPrice("");
       setProductStock("");
       setProductCatId("");
-      setProductYoutube("");
+      setProductYoutubeUrls([]);
       setProductImages([]);
     }
   };
@@ -282,7 +282,7 @@ export default function AdminPanel({
     setProductPrice(prod.price.toString());
     setProductStock(prod.stock.toString());
     setProductCatId(prod.categoryId);
-    setProductYoutube(prod.youtubeUrl || "");
+    setProductYoutubeUrls((prod as any).youtubeUrls || []);
     setProductImages(prod.images);
     setActiveTab("products"); // Switch to forms tab automatically
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -296,7 +296,7 @@ export default function AdminPanel({
     setProductPrice("");
     setProductStock("");
     setProductCatId("");
-    setProductYoutube("");
+    setProductYoutubeUrls([]);
     setProductImages([]);
   };
 
@@ -734,18 +734,51 @@ export default function AdminPanel({
                 />
               </div>
 
-              {/* YouTube Link */}
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-gray-400 flex items-center gap-1">
-                  <FileVideo className="w-3.5 h-3.5 text-red-500" /> ইউটিউব ভিডিও লিংক (ঐচ্ছিক)
-                </label>
-                <input
-                  type="url"
-                  value={productYoutube}
-                  onChange={(e) => setProductYoutube(e.target.value)}
-                  placeholder="https://www.youtube.com/watch?v=..."
-                  className="w-full px-4 py-2.5 bg-ocean-950/80 border border-white/10 rounded-xl focus:border-teal-500/50 outline-none text-gray-200 text-sm"
-                />
+              {/* YouTube Links */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-gray-400 flex items-center gap-1">
+                    <FileVideo className="w-3.5 h-3.5 text-red-500" /> ইউটিউব ভিডিও লিংকসমূহ (ঐচ্ছিক)
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setProductYoutubeUrls([...productYoutubeUrls, ""])}
+                    className="text-xs text-teal-400 hover:text-teal-300 font-bold cursor-pointer"
+                  >
+                    + আরও লিংক যোগ করুন
+                  </button>
+                </div>
+                {productYoutubeUrls.map((url, idx) => (
+                  <div key={idx} className="flex gap-2">
+                    <input
+                      type="url"
+                      value={url}
+                      onChange={(e) => {
+                        const newUrls = [...productYoutubeUrls];
+                        newUrls[idx] = e.target.value;
+                        setProductYoutubeUrls(newUrls);
+                      }}
+                      placeholder="https://www.youtube.com/watch?v=..."
+                      className="flex-1 px-4 py-2.5 bg-ocean-950/80 border border-white/10 rounded-xl focus:border-teal-500/50 outline-none text-gray-200 text-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setProductYoutubeUrls(productYoutubeUrls.filter((_, i) => i !== idx))}
+                      className="p-2.5 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 hover:bg-red-500/20 cursor-pointer"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+                {productYoutubeUrls.length === 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setProductYoutubeUrls([""])}
+                    className="w-full py-2.5 border border-dashed border-white/10 rounded-xl text-xs text-gray-400 hover:text-gray-300 hover:border-teal-500/30 transition-colors cursor-pointer"
+                  >
+                    ভিডিও লিংক যোগ করতে ক্লিক করুন
+                  </button>
+                )}
               </div>
 
               {/* Cloudinary Image Picker */}
