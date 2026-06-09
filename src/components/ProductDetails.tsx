@@ -130,7 +130,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             </h1>
 
             <div className="text-3xl font-extrabold text-teal-400">
-              ৳ {product.price.toLocaleString("bn-BD")} <span className="text-sm">(জোড়া)</span>
+              ৳ {product.price.toLocaleString("bn-BD")} <span className="text-sm">{ ["Plant", "Food"].includes(product.category.name) ? "(পিস)" : "(জোড়া)"}</span>
             </div>
 
             <div className="border-t border-b border-white/5 py-4 space-y-2">

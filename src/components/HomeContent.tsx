@@ -43,7 +43,7 @@ export default function HomeContent({
           </span>
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-white">
             আপনার ঘরের কোণে গড়ে তুলুন{" "}
-            <span className="text-gradient">রঙিন জলের মায়াবী জগত!</span>
+            <span className="text-gradient">রঙিন জলের মায়াবী জগৎ!</span>
           </h1>
           <p className="text-gray-300 text-lg max-w-xl">
             আমরা দিচ্ছি সেরা মানের ও সুস্থ রঙিন অ্যাকোয়ারিয়াম মাছ এবং আনুষঙ্গিক জিনিসপত্র।
@@ -74,7 +74,7 @@ export default function HomeContent({
         <div className="flex-1 flex justify-center items-center z-10">
           <div className="relative w-72 h-72 md:w-96 md:h-96 animate-float flex items-center justify-center bg-gradient-to-tr from-teal-500/20 to-ocean-500/20 rounded-full border border-teal-500/30 overflow-hidden shadow-2xl">
             <Image
-              src="/hero.png"
+              src="/hero2.png"
               alt="Colorful Aquarium Fish"
               fill
               className="object-cover object-center scale-110"
@@ -147,12 +147,14 @@ export default function HomeContent({
                   {/* Image banner & Heart button */}
                   <div className="relative aspect-square w-full bg-ocean-950 overflow-hidden flex items-center justify-center">
                     {product.images && product.images[0] ? (
-                      <Image
-                        src={product.images[0]}
-                        alt={product.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                      <Link href={`/products/${product.id}`}>
+                        <Image
+                          src={product.images[0]}
+                          alt={product.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </Link>
                     ) : (
                       <span className="text-6xl select-none group-hover:scale-110 transition-transform duration-300">🐟</span>
                     )}
@@ -188,9 +190,13 @@ export default function HomeContent({
                       <span className="text-xs font-semibold text-teal-400 uppercase tracking-wide">
                         {product.category.name}
                       </span>
-                      <h3 className="text-lg font-bold text-white group-hover:text-teal-400 transition-colors line-clamp-1">
-                        {product.name}
-                      </h3>
+
+                      <Link href={`/products/${product.id}`}>
+                        <h3 className="text-lg font-bold text-white group-hover:text-teal-400 transition-colors line-clamp-1">
+                          {product.name}
+                        </h3>
+                      </Link>
+
                       {/* <p className="text-gray-400 text-sm line-clamp-2">
                         {product.description}
                       </p> */}
@@ -201,12 +207,14 @@ export default function HomeContent({
                         <span className="text-xl font-extrabold text-teal-400">
                           ৳ {product.price.toLocaleString("bn-BD")}
                         </span>
-                        <span className="text-sm ml-1">(জোড়া)</span>
+                        <span className="text-sm ml-1">{["Plant", "Food"].includes(product.category.name) ? "(পিস)" : "(জোড়া)"}</span>
                       </div>
                       <span className="text-xs text-gray-500">
-                        অবশিষ্ট: {product.stock.toLocaleString("bn-BD")} টি
+                        অবশিষ্ট: {product.stock.toLocaleString("bn-BD")} {["Plant", "Food"].includes(product.category.name) ? "পিস" : "জোড়া"}
                       </span>
                     </div>
+
+
 
                     {/* Actions block */}
                     <div className="grid grid-cols-2 gap-2 pt-2">

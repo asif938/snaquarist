@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "SN Aquarist - প্রিমিয়াম অ্যাকোয়ারিয়াম ফিশ ই-কমার্স স্টোর",
   description:
     "আপনার অ্যাকোয়ারিয়ামের জন্য সেরা মানের বিভিন্ন প্রজাতির মাছ, খাবার এবং আনুষঙ্গিক জিনিসপত্র কিনুন নিরাপদে ও সহজে।",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
